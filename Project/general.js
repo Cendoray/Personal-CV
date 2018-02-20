@@ -1,11 +1,11 @@
 "use strict";
-/** Teaches IE < 9 to recognize HTML5 elements. */
+/** function for when DOM content is loaded */
 U.ready(function(){
   createDummyElements();
   disabledJavaScript();
 });
 
-
+/** Teaches IE < 9 to recognize HTML5 elements. */
 function createDummyElements() {
   var semanticElements = [
     "article", "aside", "details", "figcaption", "figure",
@@ -15,7 +15,7 @@ function createDummyElements() {
     document.createElement(semanticElements[i]);
   }
 }
-
+/** function used to disable the paragraph letting the user know javascript is unavailable*/
 function disabledJavaScript() {
   var hideList = U.$("hide");
   hideList.style.display = "none";
