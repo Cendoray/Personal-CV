@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 9]>    <html id="noJavaScript"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
     <head>
         <link rel="stylesheet" type="text/css" href="css.css">
         <meta charset="utf-8">
         <title>Student's lounge CV</title>
-    </head> 
+        <!--[if gt IE 8]><!-->
+        <script src="utilities.js"></script>
+        <script src="cv.js"></script>
+        <script src="general.js"></script>
+         <!--<![endif]-->
+    </head>
     <body>
         <nav id="navbar">
             <a href="index.html">
@@ -13,10 +19,14 @@
             <a href="index.html">Home</a>
             <a href="CV.html">CV</a>
             <a href="DragDrop.html">Drag and Drop</a>
-        </nav>  
-        
+        </nav>
+        <br/><br/><br/><br/><br/><br/>
+        <section id="hide">
+            <h2>Your Javascript is disabled</h2>
+            <p>You are using an old version of Internet explorer therefore javascript will be disabled. That means that some feautures will not work
+            on your browser and some parts of the page will not load correctly</p>
+        </section>
         <main id="normal">
-            <br/><br/><br/><br/><br/><br/>
             <section class="core">
                     <h2>Experiences</h2>
                         <ul>
@@ -25,7 +35,7 @@
                             <li>Vice-Techonlogy president in a student organization</li>
                         </ul>
             </section>
-            
+
             <section class="core">
                     <h2>Education</h2>
                         <ul>
@@ -33,10 +43,11 @@
                             <li>Cegep: Dawson</li>
                         </ul>
             </section>
-            
+
             <section class="useful">
                     <h2>Knowledge</h2>
                         <ul>
+                            <li>Windows</li>
                             <li>Linux</li>
                             <li>Java</li>
                             <li>HTML</li>
@@ -44,17 +55,17 @@
                             <li>SQL</li>
                             <li>C#</li>
                             <li>Powerpoint</li>
-                            <li>Github</li>
+                            <li>Git</li>
                         </ul>
             </section>
-            
+
             <section class="useful">
                     <h2>Objective</h2>
                 <p>My objective is to find a part-time job which will help me to <br/>
                 improve my skills and obtain more experience in the professional world</p>
             </section>
-            
-            
+
+
             <section class="bonus">
                     <h2>Hobbies</h2>
                         <ul>
@@ -66,7 +77,7 @@
                             <li>Socializing</li>
                         </ul>
             </section>
-            
+
         </main>
         <footer id="footer">
                 <p>Copyright © 19th Feburary 2018</p>
