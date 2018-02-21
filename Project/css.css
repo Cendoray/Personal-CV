@@ -111,6 +111,7 @@ img,source{
     height: 75px;
     line-height:75px;
     position: absolute;
+    bottom:0;
 }
 
 article,aside,details,figcaption,figure,
