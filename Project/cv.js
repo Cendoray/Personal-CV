@@ -31,10 +31,10 @@ function addSlider(){
 function hideInfo(e){
   setTimeout(function(){
     var targetName = e.target.id;
-    if (targetName === "slide"){
-      var core = document.getElementByClassName("core");
-      var useful = document.getElementByClassName("useful");
-      var bonus = document.getElementByClassName("bonus");
+    if (targetName === "slider"){
+      var core = document.getElementsByClassName("core");
+      var useful = document.getElementsByClassName("useful");
+      var bonus = document.getElementsByClassName("bonus");
       if (targetName.value === "25"){
         hideInfoHelper(core, "visible", useful, "hidden", bonus, "hidden");
       }else if (U.$(targetName).value === "50"){
@@ -47,31 +47,32 @@ function hideInfo(e){
 }
 /**
 * helper method used for hideInfo used to reduce repetition
-* @param {element} object1
+* @param {HTMLCollection} object1
 * @param {string} string1
-* @param {element} object2
+* @param {HTMLCollection} object2
 * @param {string} string2
-* @param {element} object3
+* @param {HTMLCollection} object3
 * @param {string} string3
 */
 function hideInfoHelper(object1, string1, object2, string2, object3, string3){
   if (typeof string1 !== "string" ||
    typeof string2 !== "string" ||
     typeof string3 !== "string") {
-    throw new TypeError(errorMsg("Invalid parameters for U.$", arguments));
+    throw new TypeError("Invalid parameters for String");
   }
-  if (!(object1 instanceof Element) ||
-   !(object2 instanceof Element) ||
-    !(object3 instanceof Element)) {
-    throw new TypeError(errorMsg("Invalid parameters for U.$", arguments));
+  if (!(object1 instanceof HTMLCollection) ||
+   !(object2 instanceof HTMLCollection) ||
+    !(object3 instanceof HTMLCollection)) {
+    throw new TypeError("Invalid parameters for U.$");
   }
-  object1.foreEach(function(o){
+
+  object1.forEach(function(o){
     o.style.visibility = string;
   });
-  object2.foreEach(function(o){
+  object2.forEach(function(o){
     o.style.visibility = string2;
   });
-  object3.foreEach(function(o){
+  object3.forEach(function(o){
     o.style.visibility = string3;
   });
 }

@@ -18,7 +18,8 @@ body{
 }
 
 #normal{
-    padding: 50px;
+    padding-top:50px;
+    padding-bottom:50px;
     border-style:hidden;
     width: 100%;
     margin-top: 5%;
@@ -48,8 +49,9 @@ div{
   border-style: groove;
   border-color: #C0C0C0;
   margin-bottom: 30px;
+  width: 95%;
+  margin-left:50px;
 }
-
 
 p,ul, h2{
   color: black;
@@ -85,7 +87,7 @@ nav a:link{
     color:black;
 }
 
-a:visited{
+nav a:visited{
     color:black;
 }
 
