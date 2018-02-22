@@ -4,7 +4,7 @@
 */
 U.ready(function(){
   addSlider();
-  U.addHandler(U.$("slider"), "click", hideInfo);
+  U.addHandler(U.$("slider"), "change", hideInfo);
 });
 /**
 * function used to create a slider and a paragraph
@@ -35,12 +35,12 @@ function hideInfo(e){
       var core = document.getElementsByClassName("core");
       var useful = document.getElementsByClassName("useful");
       var bonus = document.getElementsByClassName("bonus");
-      if (targetName.value === "25"){
-        hideInfoHelper(core, "visible", useful, "hidden", bonus, "hidden");
+      if (U.$(targetName).value === "25"){
+        hideInfoHelper(core, "visible", useful, "visible", bonus, "visible");
       }else if (U.$(targetName).value === "50"){
         hideInfoHelper(core, "visible", useful, "visible", bonus, "hidden");
       }else{
-        hideInfoHelper(core, "visible", useful, "visible", bonus, "visible");
+        hideInfoHelper(core, "visible", useful, "hidden", bonus, "hidden");
       }
     }
   }, 250);
@@ -66,13 +66,13 @@ function hideInfoHelper(object1, string1, object2, string2, object3, string3){
     throw new TypeError("Invalid parameters for U.$");
   }
 
-  object1.forEach(function(o){
-    o.style.visibility = string;
-  });
-  object2.forEach(function(o){
-    o.style.visibility = string2;
-  });
-  object3.forEach(function(o){
-    o.style.visibility = string3;
-  });
+  for( var i = 0; i < object1.length; i++){
+    object1[i].style.visibility = string1;
+  }
+  for( var j = 0; j < object2.length; j++){
+    object2[j].style.visibility = string2;
+  }
+  for( var k = 0; k < object3.length; k++){
+    object3[k].style.visibility = string3;
+  }
 }

@@ -1,7 +1,7 @@
 "use strict";
+createDummyElements();
 /** function for when DOM content is loaded */
 U.ready(function(){
-  createDummyElements();
   disabledJavaScript();
 });
 
