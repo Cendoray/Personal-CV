@@ -2,8 +2,6 @@
 var gallery = {
   "currentImg": 0,
   "flipped" : false,
-  "selected" : false,
-  "imgSelected" : "none",
   "imgFiles": [
     "cat.jpg",
     "doge.jpg",
@@ -37,8 +35,8 @@ function preloadImages() {
     div.id = name;
     div.style.width = 200;
     div.style.height = 200;
-    element.style.position = "relative";
     div.style.position = "absolute";
+    element.style.position = "relative";
     div.style.top = "3" + gallery.currentImg / "2" + "%";
     div.style.left = "3" + gallery.currentImg / "2" + "%";
     div.style.backgroundColor = "white";
@@ -58,32 +56,35 @@ function selectImage(e){
   var eleId = U.$(targetName);
   var verifier = targetName.substring(targetName.length - 3, targetName.length)
   if (verifier === "jpg"){
-    if (!gallery.selected){
-      gallery.selected = !gallery.selected;
-      eleId.style.border = "thick solid black"
-      eleId.zindex = 50;
-    }else{
-      resetImages();
-      U.removeHandler(U.$(gallery.imgSelected), "mousedown", moveImage);
-      U.addHandler(U.$(eleId.parentElement.id), "mousedown", moveImage);
-    }
-    eleId.style.border = "thick solid black"
-    gallery.imgSelected = targetName;
+    resetImages();
+    U.addHandler(U.$("container"), "mousedown", moveImage);
+    eleId.parentElement.style.border = "thick solid black"
+    eleId.parentElement.style.zIndex = "50";
   }
 }
-/**  function whose goal is to move the images when they are being dragged
+/**  call the functions when image is clicked
  * @param {EventTarget} e
  */
-function moveImage(e){
+function moveImage(){
+  U.addHandler(document, "mousemove", mouseMove);
+  U.removeHandler(document, "mouseup", mouseMove);
+  U.removeHandler(document, "mouseup", moveImage);
+}
+/**
+  * @param {EventTarget} e
+  * move the image
+ */
+function mouseMove(e){
   setTimeout(function(){
     var move = e || window.event;
     var targetName = move.target.id;
     var eleId = U.$(targetName);
     var verifier = targetName.substring(targetName.length - 3, targetName.length)
     if (verifier === "jpg"){
-      eleId.style.left = move.clientX + "px";
-      eleId.style.top = move.clientY + "px";
+      eleId.parentElement.style.left = move.clientX  + "px";
+      eleId.parentElement.style.top = move.clientY + "px";
     }
+    return false;
   }, 20);
 }
 
@@ -98,7 +99,7 @@ function flipImage(e){
   var verifier = targetName.substring(targetName.length - 3, targetName.length)
   if (verifier === "jpg"){
     if (!gallery.flipped){
-      eleId.Children.style.visibility = "hidden";
+      eleId.style.visibility = "hidden";
     }else{
       eleId.style.backgroundColor = "visible";
     }
@@ -111,8 +112,9 @@ function flipImage(e){
 function resetImages(){
   gallery.currentImg = 0;
   gallery.imgFiles.forEach(function(o){
-    U.$(o).style.border = "none";
-    U.$(o).zindex = gallery.currentImg;
+    U.$(o).parentElement.style.border = "none";
+    U.$(o).parentElement.style.zIndex = gallery.currentImg;
+    U.removeHandler(U.$(o).parentElement, "mousedown", moveImage);
     gallery.currentImg = gallery.currentImg + 2;
   });
 }

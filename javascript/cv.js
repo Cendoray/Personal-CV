@@ -36,11 +36,11 @@ function hideInfo(e){
       var useful = document.getElementsByClassName("useful");
       var bonus = document.getElementsByClassName("bonus");
       if (U.$(targetName).value === "25"){
-        hideInfoHelper(core, "visible", useful, "visible", bonus, "visible");
+        hideInfoHelper(core, "block", useful, "block", bonus, "block");
       }else if (U.$(targetName).value === "50"){
-        hideInfoHelper(core, "visible", useful, "visible", bonus, "hidden");
+        hideInfoHelper(core, "block", useful, "block", bonus, "none");
       }else{
-        hideInfoHelper(core, "visible", useful, "hidden", bonus, "hidden");
+        hideInfoHelper(core, "block", useful, "none", bonus, "none");
       }
     }
   }, 250);
@@ -67,12 +67,12 @@ function hideInfoHelper(object1, string1, object2, string2, object3, string3){
   }
 
   for( var i = 0; i < object1.length; i++){
-    object1[i].style.visibility = string1;
+    object1[i].style.display = string1;
   }
   for( var j = 0; j < object2.length; j++){
-    object2[j].style.visibility = string2;
+    object2[j].style.display = string2;
   }
   for( var k = 0; k < object3.length; k++){
-    object3[k].style.visibility = string3;
+    object3[k].style.display = string3;
   }
 }
