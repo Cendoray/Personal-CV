@@ -1,7 +1,6 @@
 "use strict";
 var gallery = {
   "currentImg": 0,
-  "flipped" : false,
   "imgFiles": [
     "cat.jpg",
     "doge.jpg",
@@ -17,8 +16,9 @@ var gallery = {
 /**   function whose goal is to activate the functions after the DOM content was loaded  */
 U.ready(function(){
   preloadImages();
-  U.addHandler(U.$("container"), "click", selectImage);
+  U.addHandler(U.$("container"), "mousedown", selectImage);
   U.addHandler(U.$("container"), "dblclick", flipImage);
+  U.addHandler(U.$("container"), "mouseup", resetMove);
 });
 
 /**  function whose goal is to preload all the images */
@@ -29,14 +29,15 @@ function preloadImages() {
     element.id = "slides";
     element.alt = name
     element.src = "../images/" + i;
+    element.ondragstart = function() { return false;};
     element.zindex = gallery.currentImg;
     element.setAttribute("id", i);
     var div = document.createElement("figure");
     div.id = name;
-    div.style.width = 200;
-    div.style.height = 200;
+    div.style.width = "200px";
+    div.style.height = "200px";
     div.style.position = "absolute";
-    element.style.position = "relative";
+    element.style.position = "absolute";
     div.style.top = "3" + gallery.currentImg / "2" + "%";
     div.style.left = "3" + gallery.currentImg / "2" + "%";
     div.style.backgroundColor = "white";
@@ -47,63 +48,77 @@ function preloadImages() {
     return element;
   });
 }
+
 /**  function whose goal is to focus on an image after it got clicked
  *  @param {EventTarget} e
  */
 function selectImage(e){
   var move = e || window.event;
-  var targetName = move.target.id;
-  var eleId = U.$(targetName);
-  var verifier = targetName.substring(targetName.length - 3, targetName.length)
+  var target = move.target || move.srcElement
+  var targetName = target.id;
+  var verifier = targetName.substring(targetName.length - 3, targetName.length);
   if (verifier === "jpg"){
     resetImages();
-    U.addHandler(U.$("container"), "mousedown", moveImage);
-    eleId.parentElement.style.border = "thick solid black"
-    eleId.parentElement.style.zIndex = "50";
+    U.addHandler(U.$(targetName).parentElement, "mousemove", mouseMove);
+    target.parentElement.style.border = "thick solid black"
+    target.parentElement.style.zIndex = "50";
+  }else if (targetName !== "container"){
+    U.addHandler(U.$(targetName), "mousemove", mouseMove);
+    target.style.border = "thick solid black";
+    target.style.zindex = "50";
   }
 }
-/**  call the functions when image is clicked
- * @param {EventTarget} e
- */
-function moveImage(){
-  U.addHandler(document, "mousemove", mouseMove);
-  U.removeHandler(document, "mouseup", mouseMove);
-  U.removeHandler(document, "mouseup", moveImage);
+
+
+function resetMove(e){
+  for (var i = 0; i < gallery.imgFiles.length; i++){
+    U.removeHandler(U.$("container").children[i], "mousemove", mouseMove);
+  }
 }
-/**
+
+
+/**s
   * @param {EventTarget} e
   * move the image
  */
 function mouseMove(e){
-  setTimeout(function(){
-    var move = e || window.event;
-    var targetName = move.target.id;
-    var eleId = U.$(targetName);
-    var verifier = targetName.substring(targetName.length - 3, targetName.length)
-    if (verifier === "jpg"){
-      eleId.parentElement.style.left = move.clientX  + "px";
-      eleId.parentElement.style.top = move.clientY + "px";
-    }
-    return false;
-  }, 20);
-}
+  var move = e || window.event;
+  var target = move.target || move.srcElement;
+  var targetName = target.id;
+  var verifier = targetName.substring(targetName.length - 3, targetName.length)
+  var coords = {
+    x: move.clientX,
+    y: move.clientY
+  };
 
+  if (verifier === "jpg"){
+    setTimeout(function(){
+      var xValue = coords.x - target.offsetWidth / 2 + "px";
+      var yValue = coords.y - target.offsetHeight / 2 + "px";
+      target.parentElement.style.left = xValue;
+      target.parentElement.style.top = yValue;
+    }, 20);
+  }else if (targetName !== "container"){
+    setTimeout(function(){
+      var xValue = coords.x - target.firstElementChild.offsetWidth / 2 + "px";
+      var yValue = coords.y - target.firstElementChild.offsetHeight / 2 + "px";
+      target.style.left = xValue;
+      target.style.top = yValue;
+    }, 20);
+  }
+}
 
 /** function whose goal is to flip the image if double clicked
  *  @param {EventTarget} e
  */
 function flipImage(e){
   var move = e || window.event;
-  var targetName = move.target.id;
-  var eleId = U.$(targetName);
-  var verifier = targetName.substring(targetName.length - 3, targetName.length)
-  if (verifier === "jpg"){
-    if (!gallery.flipped){
-      eleId.style.visibility = "hidden";
-    }else{
-      eleId.style.backgroundColor = "visible";
-    }
-    gallery.flipped = !gallery.flipped;
+  var target = move.target || move.srcElement
+  var targetName = target.id;
+  if (targetName.substring(targetName.length - 3, targetName.length) === "jpg"){
+    target.style.visibility = "hidden";
+  }else if (targetName !== "container"){
+    target.firstElementChild.style.visibility = "visible";
   }
 }
 
@@ -114,7 +129,6 @@ function resetImages(){
   gallery.imgFiles.forEach(function(o){
     U.$(o).parentElement.style.border = "none";
     U.$(o).parentElement.style.zIndex = gallery.currentImg;
-    U.removeHandler(U.$(o).parentElement, "mousedown", moveImage);
     gallery.currentImg = gallery.currentImg + 2;
   });
 }
