@@ -60,7 +60,10 @@ p,ul, h2{
   color: black;
 }
 
-
+#container{
+  position:relative;
+  overflow: hidden;
+}
 #navbar, #footer{
   overflow:hidden;
   background-color: #538cc6;

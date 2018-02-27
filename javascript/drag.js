@@ -38,7 +38,7 @@ function preloadImages() {
     div.style.height = "200px";
     div.style.position = "absolute";
     element.style.position = "absolute";
-    div.style.top = "3" + gallery.currentImg / "2" + "%";
+    div.style.top = "2" + gallery.currentImg / "2" + "%";
     div.style.left = "3" + gallery.currentImg / "2" + "%";
     div.style.backgroundColor = "white";
     U.$("container").appendChild(div);
@@ -69,7 +69,9 @@ function selectImage(e){
   }
 }
 
-
+/**
+ * removes the "mousemove" handler from all images after you let go
+ */
 function resetMove(){
   for (var i = 0; i < gallery.imgFiles.length; i++){
     U.removeHandler(U.$("container").children[i], "mousemove", mouseMove);
@@ -94,14 +96,14 @@ function mouseMove(e){
   if (verifier === "jpg"){
     setTimeout(function(){
       var xValue = coords.x - target.offsetWidth / 2 + "px";
-      var yValue = coords.y - target.offsetHeight / 2 + "px";
+      var yValue = coords.y / 2 - target.offsetHeight / 1.5 + "px";
       target.parentElement.style.left = xValue;
       target.parentElement.style.top = yValue;
     }, 20);
   }else if (targetName !== "container"){
     setTimeout(function(){
-      var xValue = coords.x - target.children[0].offsetWidth / 2 + "px";
-      var yValue = coords.y - target.children[0].offsetHeight / 2 + "px";
+      var xValue = coords.x  - target.children[0].offsetWidth / 2  + "px";
+      var yValue = coords.y / 2  - target.children[0].offsetHeight / 1.5 + "px";
       target.style.left = xValue;
       target.style.top = yValue;
     }, 20);

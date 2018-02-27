@@ -1,2 +1,8 @@
-# Project 1: Portfolio
-This project consists in making a web page for a CV which implements both a drag and drop feature and a slider to change the amount of details in the page
+# <Your Name> Project 1: portfolio
+
+* Sonic URL: <http://blah.blah>
+* GitLab URL: <http://blah.blah>
+
+## Known Issues
+
+Describe any problems you encountered or bugs you're aware of.
