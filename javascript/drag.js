@@ -57,20 +57,20 @@ function selectImage(e){
   var target = move.target || move.srcElement
   var targetName = target.id;
   var verifier = targetName.substring(targetName.length - 3, targetName.length);
+  resetImages();
   if (verifier === "jpg"){
-    resetImages();
     U.addHandler(U.$(targetName).parentElement, "mousemove", mouseMove);
     target.parentElement.style.border = "thick solid black"
     target.parentElement.style.zIndex = "50";
   }else if (targetName !== "container"){
     U.addHandler(U.$(targetName), "mousemove", mouseMove);
     target.style.border = "thick solid black";
-    target.style.zindex = "50";
+    target.style.zIndex = "50";
   }
 }
 
 
-function resetMove(e){
+function resetMove(){
   for (var i = 0; i < gallery.imgFiles.length; i++){
     U.removeHandler(U.$("container").children[i], "mousemove", mouseMove);
   }
@@ -100,8 +100,8 @@ function mouseMove(e){
     }, 20);
   }else if (targetName !== "container"){
     setTimeout(function(){
-      var xValue = coords.x - target.firstElementChild.offsetWidth / 2 + "px";
-      var yValue = coords.y - target.firstElementChild.offsetHeight / 2 + "px";
+      var xValue = coords.x - target.children[0].offsetWidth / 2 + "px";
+      var yValue = coords.y - target.children[0].offsetHeight / 2 + "px";
       target.style.left = xValue;
       target.style.top = yValue;
     }, 20);
@@ -118,7 +118,7 @@ function flipImage(e){
   if (targetName.substring(targetName.length - 3, targetName.length) === "jpg"){
     target.style.visibility = "hidden";
   }else if (targetName !== "container"){
-    target.firstElementChild.style.visibility = "visible";
+    target.children[0].style.visibility = "visible";
   }
 }
 

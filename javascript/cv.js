@@ -22,6 +22,10 @@ function addSlider(){
     U.setText(para, "Details:");
     U.$("navbar").appendChild(para);
     U.$("navbar").appendChild(slider);
+    var core = document.getElementsByClassName("core");
+    var useful = document.getElementsByClassName("useful");
+    var bonus = document.getElementsByClassName("bonus");
+    hideInfoHelper(core, "block", useful, "none", bonus, "none");
   }
 }
 /**
@@ -29,21 +33,19 @@ function addSlider(){
 * @param {EventTarget} e
 */
 function hideInfo(e){
-  setTimeout(function(){
-    var targetName = e.target.id;
-    if (targetName === "slider"){
-      var core = document.getElementsByClassName("core");
-      var useful = document.getElementsByClassName("useful");
-      var bonus = document.getElementsByClassName("bonus");
-      if (U.$(targetName).value === "25"){
-        hideInfoHelper(core, "block", useful, "block", bonus, "block");
-      }else if (U.$(targetName).value === "50"){
-        hideInfoHelper(core, "block", useful, "block", bonus, "none");
-      }else{
-        hideInfoHelper(core, "block", useful, "none", bonus, "none");
-      }
+  var targetName = e.target.id;
+  if (targetName === "slider"){
+    var core = document.getElementsByClassName("core");
+    var useful = document.getElementsByClassName("useful");
+    var bonus = document.getElementsByClassName("bonus");
+    if (U.$(targetName).value === "25"){
+      hideInfoHelper(core, "block", useful, "none", bonus, "none");
+    }else if (U.$(targetName).value === "50"){
+      hideInfoHelper(core, "block", useful, "block", bonus, "none");
+    }else{
+      hideInfoHelper(core, "block", useful, "block", bonus, "block");
     }
-  }, 250);
+  }
 }
 /**
 * helper method used for hideInfo used to reduce repetition
