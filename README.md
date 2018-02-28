@@ -1,6 +1,6 @@
 # <Daniel Rafail> Project 1: portfolio
 
-* Sonic URL: <http://blah.blah>
+* Sonic URL: <https://sonic.dawsoncollege.qc.ca/~F16_1633028/423P1-RafailD/>
 * GitLab URL: <https://gitlab.com/JS423-2018-Project1/423P1-RafailD>
 
 ## Known Issues
