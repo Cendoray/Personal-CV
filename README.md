@@ -5,4 +5,5 @@
 
 ## Known Issues
 
-When you can see only the bottom part of the image after having scrolled down, if you click on this part of the image, the image gets teleported somewhere up top
+-Footer does not stick to the bottom of the page if the window is small
+-"Home" <a> tag in navigation enters the icon on the left when the window is as small as possible on Internet explorer

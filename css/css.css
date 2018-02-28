@@ -14,8 +14,11 @@ body{
     font-size: 18px;
     position: relative;
 }
+
 #logo{
-    float:left;
+    top:0;
+    left:0;
+    position: absolute;
 }
 
 #normal{
@@ -33,21 +36,17 @@ nav input[type=range]{
   display: inline;
   position: absolute;
   top: 60%;
-  left: 50%;
-  margin-left: 70px;
+  left: 52%;
+  margin-left: 80px ;
 }
 
-
-nav p{
-  margin-top : -100px;
-  padding-right : 100px;
-}
-
-nav a{
-    margin-right: 50px;
+nav a, nav p{
+    margin-left: 8%;
+    margin-top: 5px;
 }
 
 div{
+  overflow: auto;
   background-color: #C0C0C0;
   border-style: groove;
   border-color: #C0C0C0;
@@ -66,19 +65,20 @@ p,ul, h2{
   position:relative;
   overflow: hidden;
 }
+
 #navbar, #footer{
-  overflow:hidden;
   background-color: #538cc6;
   width: 100%;
   text-align: center;
   left:0;
   z-index: 100;
+  overflow: hidden;
 }
 #navbar {
     position: fixed;
     top: 0;
-    height: 130px;
-    line-height:125px;
+    height: 75px;
+    padding-top: 45px;
 }
 
 a:link{
@@ -121,6 +121,7 @@ article,aside,details,figcaption,figure,
 footer,header,hgroup,menu,nav,section {
    display:block;
 }
+
 
 ul{
   list-style-position: inside;

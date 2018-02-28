@@ -23,16 +23,17 @@ U.ready(function(){
 
 /**  function whose goal is to preload all the images */
 function preloadImages() {
-  return gallery.imgFiles.map(function(i) {
+  for (var i = 0 ; i < gallery.imgFiles.length; i++){
     var element = new Image();
-    var name = i.substring(0, i.length - 4);
+    var name = gallery.imgFiles[i].substring(0, gallery.imgFiles[i].length - 4);
     element.id = "slides";
     element.alt = name
-    element.src = "../images/" + i;
+    element.src = "../images/" + gallery.imgFiles[i];
     element.ondragstart = function() { return false;};
     element.zindex = gallery.currentImg;
-    element.setAttribute("id", i);
+    element.setAttribute("id", gallery.imgFiles[i]);
     var div = document.createElement("figure");
+    div.ondragstart = function() { return false;};
     div.id = name;
     div.style.width = "200px";
     div.style.height = "200px";
@@ -45,8 +46,7 @@ function preloadImages() {
     U.$("container").style.height = "400px";
     U.$(name).appendChild(element);
     gallery.currentImg = gallery.currentImg + 2;
-    return element;
-  });
+  }
 }
 
 /**  function whose goal is to focus on an image after it got clicked
@@ -89,7 +89,6 @@ function mouseMove(e){
   var targetName = target.id;
   var verifier = targetName.substring(targetName.length - 3, targetName.length)
   //FROM https://gist.github.com/shamasis/beec7a77c7731023ac17
-  var body;
   var coords = {
     x : move.clientX + document.documentElement.scrollLeft,
     y : move.clientY + document.documentElement.scrollTop
@@ -131,9 +130,9 @@ function flipImage(e){
 /** function whose goal is to help reset the border and zindex of all the images  */
 function resetImages(){
   gallery.currentImg = 0;
-  gallery.imgFiles.forEach(function(o){
-    U.$(o).parentElement.style.border = "none";
-    U.$(o).parentElement.style.zIndex = gallery.currentImg;
+  for( var i = 0 ; i < gallery.imgFiles.length; i++){
+    U.$(gallery.imgFiles[i]).parentElement.style.border = "none";
+    U.$(gallery.imgFiles[i]).parentElement.style.zIndex = gallery.currentImg;
     gallery.currentImg = gallery.currentImg + 2;
-  });
+  }
 }
