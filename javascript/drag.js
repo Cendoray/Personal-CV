@@ -88,7 +88,6 @@ function mouseMove(e){
   var target = move.target || move.srcElement;
   var targetName = target.id;
   var verifier = targetName.substring(targetName.length - 3, targetName.length)
-  //FROM https://gist.github.com/shamasis/beec7a77c7731023ac17
   var coords = {
     x : move.clientX + document.documentElement.scrollLeft,
     y : move.clientY + document.documentElement.scrollTop
@@ -108,6 +107,14 @@ function mouseMove(e){
       - target.children[0].offsetHeight / 2 + "px";
       target.style.left = xValue;
       target.style.top = yValue;
+    }, 20);
+  }else{
+    setTimeout(function(){
+      var xValue = coords.x - target.children[gallery.imgFiles.IndexOf(target)].children[0].offsetWidth / 2 + "px";
+      var yValue = coords.y - U.$("container").offsetTop
+      - target.children[gallery.imgFiles.IndexOf(target)].children[0].offsetHeight / 2 + "px";
+      target.children[gallery.imgFiles.IndexOf(target)].style.left = xValue;
+      target.children[gallery.imgFiles.IndexOf(target)].style.top = yValue;
     }, 20);
   }
 }
