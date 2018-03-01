@@ -12,6 +12,7 @@ var gallery = {
     "tortoise.jpg",
     "owl.jpg"
   ],
+  "selectedImg" : "",
 };
 /**   function whose goal is to activate the functions after the DOM content was loaded  */
 U.ready(function(){
@@ -59,13 +60,15 @@ function selectImage(e){
   var verifier = targetName.substring(targetName.length - 3, targetName.length);
   resetImages();
   if (verifier === "jpg"){
-    U.addHandler(U.$(targetName).parentElement, "mousemove", mouseMove);
+    U.addHandler(U.$("container"), "mousemove", mouseMove);
     target.parentElement.style.border = "thick solid black"
     target.parentElement.style.zIndex = "50";
+    gallery.selectedImage = target.parentElement;
   }else if (targetName !== "container"){
-    U.addHandler(U.$(targetName), "mousemove", mouseMove);
+    U.addHandler(U.$("container"), "mousemove", mouseMove);
     target.style.border = "thick solid black";
     target.style.zIndex = "50";
+    gallery.selectedImage = target;
   }
 }
 
@@ -73,9 +76,7 @@ function selectImage(e){
  * removes the "mousemove" handler from all images after you let go
  */
 function resetMove(){
-  for (var i = 0; i < gallery.imgFiles.length; i++){
-    U.removeHandler(U.$("container").children[i], "mousemove", mouseMove);
-  }
+  U.removeHandler(U.$("container"), "mousemove", mouseMove);
 }
 
 
@@ -85,38 +86,17 @@ function resetMove(){
  */
 function mouseMove(e){
   var move = e || window.event;
-  var target = move.target || move.srcElement;
-  var targetName = target.id;
-  var verifier = targetName.substring(targetName.length - 3, targetName.length)
   var coords = {
     x : move.clientX + document.documentElement.scrollLeft,
     y : move.clientY + document.documentElement.scrollTop
   };
-
-  if (verifier === "jpg"){
-    setTimeout(function(){
-      var xValue = coords.x - target.offsetWidth / 2 + "px";
-      var yValue = coords.y - U.$("container").offsetTop  - target.offsetHeight / 2  + "px";
-      target.parentElement.style.left = xValue;
-      target.parentElement.style.top = yValue;
-    }, 20);
-  }else if (targetName !== "container"){
-    setTimeout(function(){
-      var xValue = coords.x - target.children[0].offsetWidth / 2 + "px";
-      var yValue = coords.y - U.$("container").offsetTop
-      - target.children[0].offsetHeight / 2 + "px";
-      target.style.left = xValue;
-      target.style.top = yValue;
-    }, 20);
-  }else{
-    setTimeout(function(){
-      var xValue = coords.x - target.children[gallery.imgFiles.IndexOf(target)].children[0].offsetWidth / 2 + "px";
-      var yValue = coords.y - U.$("container").offsetTop
-      - target.children[gallery.imgFiles.IndexOf(target)].children[0].offsetHeight / 2 + "px";
-      target.children[gallery.imgFiles.IndexOf(target)].style.left = xValue;
-      target.children[gallery.imgFiles.IndexOf(target)].style.top = yValue;
-    }, 20);
-  }
+  setTimeout(function(){
+    var xValue = coords.x - gallery.selectedImage.offsetWidth / 2 + "px";
+    var yValue = coords.y - U.$("container").offsetTop
+    - gallery.selectedImage.offsetHeight / 2  + "px";
+    gallery.selectedImage.style.left = xValue;
+    gallery.selectedImage.style.top = yValue;
+  }, 20);
 }
 
 /** function whose goal is to flip the image if double clicked

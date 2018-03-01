@@ -4,7 +4,6 @@
 */
 U.ready(function(){
   addSlider();
-  U.addHandler(U.$("slider"), "change", hideInfo);
 });
 /**
 * function used to create a slider and a paragraph
@@ -26,6 +25,7 @@ function addSlider(){
     var useful = document.getElementsByClassName("useful");
     var bonus = document.getElementsByClassName("bonus");
     hideInfoHelper(core, "block", useful, "none", bonus, "none");
+    U.addHandler(U.$("slider"), "change", hideInfo);
   }
 }
 /**
