@@ -35,14 +35,13 @@ nav input[type=range]{
   position: absolute;
   margin-left: 300px;
   top: 75%;
-  left: 30%;
+  left: 36%;
   width: 15%;
 }
 
 nav a, nav p {
     margin-top: 20px;
-    margin-left: 4%;
-    margin-right: 5%;
+    margin-right: 40px;
 }
 
 div{
@@ -81,7 +80,7 @@ header{
 }
 
 nav{
-  width: 60%;
+  width: 75%;
   margin-left: 250px;
 }
 
